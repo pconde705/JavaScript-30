@@ -22,6 +22,23 @@
 
   <style>
 
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+      /*The -- is just convention, it doesn't have to be there to work*/
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +62,17 @@
   </style>
 
   <script>
+
+    const inputs = document.querySelectorAll(".controls input") // this will give us a node list (not an array)
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || ""; // takes the px from the data-sizing (arbitrary name) written above
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
